@@ -1,0 +1,9 @@
+name: locuszoom
+channels:
+  - defaults
+  - conda-forge
+  - r
+  - anaconda
+dependencies:
+  - r-base=3.6.1
+  - python=2.7.16
