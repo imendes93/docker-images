@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     build-essential
 
 # Install Python and R dependencies through miniconda
-COPY environment.yml ./
+COPY environment.yml /
 RUN  conda env create -f /environment.yml && \
      conda clean -a
 ENV PATH /opt/conda/envs/locuszoom/bin:$PATH
