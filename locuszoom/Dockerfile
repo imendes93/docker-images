@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
     zip \
     libxt6 \
     libgomp1 \
-    zlib1g-dev
+    zlib1g-dev \
+    build-essential
 
 # Install Python and R dependencies through miniconda
 COPY environment.yml /
@@ -24,6 +25,7 @@ RUN wget http://www.sph.umich.edu/csg/abecasis/downloads/generic-new_fugue-2010-
     tar -xf generic-new_fugue-2010-06-02.tar.gz && \
     cd generic-new_fugue && \
     make install
+RUN rm generic-new_fugue-2010-06-02.tar.gz
 
 # - PLINK
 RUN wget https://zzz.bwh.harvard.edu/plink/dist/plink-1.07-x86_64.zip && \
@@ -35,9 +37,12 @@ ENV PATH /plink-1.07-x86_64:$PATH
 RUN wget https://sourceforge.net/projects/samtools/files/tabix/tabix-0.2.6.tar.bz2 && \
     tar -xf tabix-0.2.6.tar.bz2 && \
     cd tabix-0.2.6 && \
-    make install
+    make
+RUN rm tabix-0.2.6.tar.bz2
+ENV PATH /tabix-0.2.6:$PATH
 
 # Install locuszoom
 RUN wget https://statgen.sph.umich.edu/locuszoom/download/locuszoom_1.4_srconly.tgz && \
-    tar -xf locuszoom_1.4_srconly.tgz &&
+    tar -xf locuszoom_1.4_srconly.tgz
+RUN rm locuszoom_1.4_srconly.tgz
 ENV PATH /locuszoom/bin:$PATH
